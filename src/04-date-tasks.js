@@ -82,14 +82,20 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
-  // const dif = new Date(endDate - startDate);
-  // const hours = dif.getHours();
-  // const min = dif.getMinutes();
-  // const sec = dif.getSeconds();
-  // const mlsec = dif.getMilliseconds();
-  // return `${hours}:${min}:${sec}.${mlsec}`;
+function timeSpanToString(startDate, endDate) {
+  const dif = Math.abs(endDate - startDate);
+  let millisec = (dif % 1000);
+  let sec = Math.floor((dif / 1000) % 60);
+  let min = Math.floor((dif / (1000 * 60)) % 60);
+  let hours = Math.floor((dif / (1000 * 60 * 60)) % 24);
+
+  hours = (hours < 10) ? `0${hours}` : hours;
+  min = (min < 10) ? `0${min}` : min;
+  sec = (sec < 10) ? `0${sec}` : sec;
+  if (millisec.toString().length < 2) {
+    millisec = `${millisec}00`;
+  }
+  return `${hours}:${min}:${sec}.${millisec}`;
 }
 
 
@@ -98,7 +104,7 @@ function timeSpanToString(/* startDate, endDate */) {
  * for the specified Greenwich time.
  * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
  *
- * SMALL TIP: convert to radians just once, before return in order to not lost precision
+ * SMALL TIP: convert to radians just once, before in order to not lost precision
  *
  * @param {date} date
  * @return {number}
@@ -109,8 +115,16 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const min = date.getUTCMinutes();
+  const hourAngle = 0.5 * (60 * date.getUTCHours() + min);
+
+  const minuteAngle = 6 * min;
+  let res = Math.abs(hourAngle - minuteAngle) % 360;
+  if (res > 180) {
+    res = 360 - res;
+  }
+  return (res * Math.PI) / 180;
 }
 
 

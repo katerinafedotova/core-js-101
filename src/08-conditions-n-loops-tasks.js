@@ -132,6 +132,22 @@ function isTriangle(a, b, c) {
  */
 function doRectanglesOverlap(/* rect1, rect2 */) {
   throw new Error('Not implemented');
+  // top: x coordinate of upper left corner
+  // left - y coordinate of upper left corner
+  // (RectA.Left < RectB.Right && RectA.Right > RectB.Left && RectA.Top
+  //  > rectBbottom && RectA.Bottom < RectB.Top )
+  // const right1 = rect1.left + rect1.width;
+  // const right2 = rect2.left + rect2.width;
+  // const bottom1 = rect1.top - rect1.height;
+  // const bottom2 = rect2.top - rect2.height;
+  // if (rect1.top < bottom2 || rect2.top < bottom1) {
+  //   return false;
+  // }
+  // if (right1 > rect2.left && rect1.left < right2 && rect1.top > bottom2
+  //   && bottom1 < rect2.top) {
+  //   return true;
+  // }
+  // return false;
 }
 
 
@@ -161,8 +177,11 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  if (((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2) < circle.radius ** 2) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -441,8 +460,33 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const arr = [];
+  // first line
+  const arr1 = [];
+  const first1 = m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0] + m1[0][2] * m2[2][0];
+  arr1.push(first1);
+  if (m1.length === 1) {
+    arr.push(arr1);
+    return arr;
+  }
+  const second1 = m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1] + m1[0][2] * m2[2][1];
+  const third1 = m1[0][0] * m2[0][2] + m1[0][1] * m2[1][2] + m1[0][2] * m2[2][2];
+  arr1.push(second1, third1);
+  // second line
+  const arr2 = [];
+  const first2 = m1[1][0] * m2[0][0] + m1[1][1] * m2[1][0] + m1[1][2] * m2[2][0];
+  const second2 = m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1] + m1[1][2] * m2[2][1];
+  const third2 = m1[1][0] * m2[0][2] + m1[1][1] * m2[1][2] + m1[1][2] * m2[2][2];
+  arr2.push(first2, second2, third2);
+  // third line
+  const arr3 = [];
+  const first3 = m1[2][0] * m2[0][0] + m1[2][1] * m2[1][0] + m1[2][2] * m2[2][0];
+  const second3 = m1[2][0] * m2[0][1] + m1[2][1] * m2[1][1] + m1[2][2] * m2[2][1];
+  const third3 = m1[2][0] * m2[0][2] + m1[2][1] * m2[1][2] + m1[2][2] * m2[2][2];
+  arr3.push(first3, second3, third3);
+  arr.push(arr1, arr2, arr3);
+  return arr;
 }
 
 
