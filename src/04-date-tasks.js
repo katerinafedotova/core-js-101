@@ -82,21 +82,20 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
-  // const dif = Math.abs(endDate - startDate);
-  // let millisec = (dif % 1000);
-  // let sec = Math.floor((dif / 1000) % 60);
-  // let min = Math.floor((dif / (1000 * 60)) % 60);
-  // let hours = Math.floor((dif / (1000 * 60 * 60)) % 24);
+function timeSpanToString(startDate, endDate) {
+  const dif = Math.abs(endDate - startDate);
+  let millisec = (dif % 1000);
+  let sec = Math.floor((dif / 1000) % 60);
+  let min = Math.floor((dif / (1000 * 60)) % 60);
+  let hours = Math.floor((dif / (1000 * 60 * 60)) % 24);
 
-  // hours = (hours < 10) ? `0${hours}` : hours;
-  // min = (min < 10) ? `0${min}` : min;
-  // sec = (sec < 10) ? `0${sec}` : sec;
-  // if (millisec.toString().length < 2) {
-  //   millisec = `${millisec}00`;
-  // }
-  // return `${hours}:${min}:${sec}.${millisec}`;
+  hours = (hours < 10) ? `0${hours}` : hours;
+  min = (min < 10) ? `0${min}` : min;
+  sec = (sec < 10) ? `0${sec}` : sec;
+  if (millisec.toString().length < 2) {
+    millisec = `${millisec}00`;
+  }
+  return `${hours}:${min}:${sec}.${millisec}`;
 }
 
 
