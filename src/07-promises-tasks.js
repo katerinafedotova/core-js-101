@@ -80,9 +80,8 @@ function processAllPromises(array) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
-  // return Promise.race(array);
+function getFastestPromise(array) {
+  return Promise.race(array);
 }
 
 /**
