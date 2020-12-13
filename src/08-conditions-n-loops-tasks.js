@@ -132,22 +132,6 @@ function isTriangle(a, b, c) {
  */
 function doRectanglesOverlap(/* rect1, rect2 */) {
   throw new Error('Not implemented');
-  // top: x coordinate of upper left corner
-  // left - y coordinate of upper left corner
-  // (RectA.Left < RectB.Right && RectA.Right > RectB.Left && RectA.Top
-  //  > rectBbottom && RectA.Bottom < RectB.Top )
-  // const right1 = rect1.left + rect1.width;
-  // const right2 = rect2.left + rect2.width;
-  // const bottom1 = rect1.top - rect1.height;
-  // const bottom2 = rect2.top - rect2.height;
-  // if (rect1.top < bottom2 || rect2.top < bottom1) {
-  //   return false;
-  // }
-  // if (right1 > rect2.left && rect1.left < right2 && rect1.top > bottom2
-  //   && bottom1 < rect2.top) {
-  //   return true;
-  // }
-  // return false;
 }
 
 
